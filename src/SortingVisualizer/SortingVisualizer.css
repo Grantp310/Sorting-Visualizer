@@ -1,0 +1,70 @@
+body {
+    background-color: #FFECDD;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.visualizer-container {
+    position: relative;
+    height: 100vh;
+    /* Full height of the viewport */
+}
+
+.button-container {
+    background-color: #363030;
+    position: absolute;
+    /* Distance from the top of the screen */
+    width: 100%;
+    height: 100px;
+    /* Stretch to the full width of the screen */
+    display: flex;
+    justify-content: center;
+    /* Center the buttons horizontally */
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.control-button {
+    padding: 10px 50px;
+    font-size: 16px;
+    background-color: #363030;
+    /* Green background */
+    color: #FFECDD;
+    /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.control-button:hover {
+    background-color: #F47B89;
+    /* Darker green on hover */
+}
+
+.array-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    /* Full height minus space for the button */
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 60px;
+    /* Add padding to prevent bars from overlapping with the button */
+}
+
+.array-bar {
+    width: 5px;
+    background-color: #F47B89;
+    display: inline-block;
+    margin: 0 1px;
+}
+
+/* Color Scheme:
+#160F29 - Dark Purple       #8369c8 - Lightened
+#246A73 - Caribbean Current
+#368F8B - Dark Cyan
+#F3DFC1 - Champagne
+#DDBEA8 - Desert Sand */
