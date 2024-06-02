@@ -3,7 +3,7 @@ import * as SortingAlgorithms from "../SortingAlgorithms/SortingAlgorithms.js";
 import "./SortingVisualizer.css";
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 30;
+const ANIMATION_SPEED_MS = 20;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 50
