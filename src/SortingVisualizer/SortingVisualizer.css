@@ -25,7 +25,35 @@ body {
     /* Space between buttons */
 }
 
-.control-button {
+.algorithm-button {
+    padding: 10px 50px;
+    font-size: 16px;
+    background-color: #363030;
+    /* Green background */
+    color: #FFECDD;
+    /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    /* Light colors
+    background-color: #68bbd6;
+    background-color: #a977ea;
+    background-color: #F47B89;
+    background-color: #5abe91;
+
+    background-color: #1c6c87;
+    background-color: #50218d;
+    background-color: #8c1a27;
+    background-color: #15754a; */
+}
+
+.algorithm-button:hover {
+    background-color: #9b9b9b;
+}
+
+.reset-button {
+    margin-right: 5%;
     padding: 10px 50px;
     font-size: 16px;
     background-color: #363030;
@@ -37,9 +65,26 @@ body {
     cursor: pointer;
 }
 
-.control-button:hover {
-    background-color: #F47B89;
-    /* Darker green on hover */
+.reset-button:hover {
+    background-color: #9b9b9b;
+}
+
+.play-button {
+    margin-left: 5%;
+    /* Adjust the margin as per your design */
+    padding: 10px 50px;
+    font-size: 16px;
+    background-color: #363030;
+    /* Green background */
+    color: #FFECDD;
+    /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    background-color: #9b9b9b;
 }
 
 .array-container {
@@ -56,8 +101,8 @@ body {
 }
 
 .array-bar {
-    width: 5px;
-    background-color: #F47B89;
+    width: 25px;
+    background-color: #9b9b9b;
     display: inline-block;
     margin: 0 1px;
 }
