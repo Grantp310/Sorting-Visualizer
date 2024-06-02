@@ -18,6 +18,7 @@ export default class SortingVisualizer extends React.Component {
             selectedAlgorithm: null,
             mainColor: "#9b9b9b",
             mainColorDark: "#FFFFFF",
+            isAnimating: false,
         };
     }
 
@@ -26,6 +27,8 @@ export default class SortingVisualizer extends React.Component {
     }
 
     resetArray() {
+        if (this.state.isAnimating) return;
+
         const array = [];
         for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
             array.push(randomIntFromInterval(10, 650));
@@ -33,7 +36,14 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ array });
     }
 
+    setButtonColor(algorithm, color) {
+        const button = document.querySelector(`.algorithm-button[data-algorithm="${algorithm}"]`);
+        button.style.backgroundColor = color;
+    }
+
     setSelectedAlgorithm(algorithm, selectedColor, selectedColorDark) {
+        if (this.state.isAnimating) return;
+
         // Creamy orange: #F67451
         const defaultColor = "#363030";
 
@@ -87,14 +97,23 @@ export default class SortingVisualizer extends React.Component {
     }
 
     play() {
-        const { selectedAlgorithm, array } = this.state;
-        if (selectedAlgorithm) {
-            const animations = SortingAlgorithms[selectedAlgorithm](array);
-            this.animate(animations);
-        }
+        const selectedAlgorithm = this.state.selectedAlgorithm;
+
+        if (this.state.isAnimating || !selectedAlgorithm) return;
+
+        const array = this.state.array.slice();
+        const animations = SortingAlgorithms[selectedAlgorithm](array);
+        this.animate(animations);
+
+        // hacky fix
+        setTimeout(() => {
+            SortingAlgorithms[selectedAlgorithm](this.state.array);
+        }, animations.length * ANIMATION_SPEED_MS);
     }
 
     animate(animations) {
+        this.setState({ isAnimating: true });
+
         const originalColor = this.state.mainColor;
         const compareColor = this.state.mainColorDark;
 
@@ -126,11 +145,10 @@ export default class SortingVisualizer extends React.Component {
                 }
             }, i * ANIMATION_SPEED_MS);
         }
-    }
-
-    bubbleSort() {
-        const array = this.state.array;
-        SortingAlgorithms.bubbleSort(array);
+        // Set isAnimating to false after all animations are done
+        setTimeout(() => {
+            this.setState({ isAnimating: false });
+        }, animations.length * ANIMATION_SPEED_MS);
     }
 
     render() {
@@ -143,10 +161,18 @@ export default class SortingVisualizer extends React.Component {
                     <button className="reset-button" onClick={() => this.resetArray()}>Generate New Array</button>
 
                     {/* add defualt-color attribute */}
-                    <button className="algorithm-button" data-algorithm="quickSort" onClick={() => this.setSelectedAlgorithm("quickSort", "#68bbd6", "#1c6c87")}>Quick Sort</button>
-                    <button className="algorithm-button" data-algorithm="heapSort" onClick={() => this.setSelectedAlgorithm("heapSort", "#a977ea", "#50218d")}>Heap Sort</button>
-                    <button className="algorithm-button" data-algorithm="mergeSort" onClick={() => this.setSelectedAlgorithm("mergeSort", "#F47B89", "#8c1a27")}>Merge Sort</button>
-                    <button className="algorithm-button" data-algorithm="bubbleSort" onClick={() => this.setSelectedAlgorithm("bubbleSort", "#5abe91", "#15754a")}>Bubble Sort</button>
+                    <button className="algorithm-button" data-algorithm="quickSort" onClick={() => this.setSelectedAlgorithm("quickSort", "#68bbd6", "#1c6c87")}
+                        onMouseEnter={() => this.setButtonColor("quickSort", "#68bbd6")}
+                        onMouseLeave={() => { if (this.state.selectedAlgorithm !== "quickSort") { this.setButtonColor("quickSort", "#363030") } }}>Quick Sort</button>
+                    <button className="algorithm-button" data-algorithm="heapSort" onClick={() => this.setSelectedAlgorithm("heapSort", "#a977ea", "#50218d")}
+                        onMouseEnter={() => this.setButtonColor("heapSort", "#a977ea")}
+                        onMouseLeave={() => { if (this.state.selectedAlgorithm !== "heapSort") { this.setButtonColor("heapSort", "#363030") } }}>Heap Sort</button>
+                    <button className="algorithm-button" data-algorithm="mergeSort" onClick={() => this.setSelectedAlgorithm("mergeSort", "#f47b89", "#8c1a27")}
+                        onMouseEnter={() => this.setButtonColor("mergeSort", "#f47b89")}
+                        onMouseLeave={() => { if (this.state.selectedAlgorithm !== "mergeSort") { this.setButtonColor("mergeSort", "#363030") } }}>Merge Sort</button>
+                    <button className="algorithm-button" data-algorithm="bubbleSort" onClick={() => this.setSelectedAlgorithm("bubbleSort", "#5abe91", "#15754a")}
+                        onMouseEnter={() => this.setButtonColor("bubbleSort", "#5abe91")}
+                        onMouseLeave={() => { if (this.state.selectedAlgorithm !== "bubbleSort") { this.setButtonColor("bubbleSort", "#363030") } }}>Bubble Sort</button>
 
                     <button className="play-button" onClick={() => this.play()}>Play</button>
                 </div>
