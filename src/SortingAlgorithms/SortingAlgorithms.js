@@ -62,9 +62,10 @@ function doMerge(
 
 export function bubbleSort(array) {
     const animations = [];
+    var sortedCount = 0;
     do {
         var swapped = false;
-        for (let i = 1; i < array.length; i++) {
+        for (let i = 1; i < array.length - sortedCount; i++) {
             animations.push({ indices: [i - 1, i], type: "compare" });
             if (array[i] < array[i - 1]) {
                 swapped = true;
@@ -72,6 +73,7 @@ export function bubbleSort(array) {
                 animations.push({ indices: [i - 1, i], type: "swap" });
             }
         }
+        sortedCount++;
     } while (swapped);
     return animations;
 }
