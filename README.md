@@ -1,4 +1,4 @@
-# Web app usage
+# Usage
 
 To use the Sorting Visualizer, go to: https://grantperlmuter.github.io/sorting-visualizer/
 
